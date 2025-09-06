@@ -1,0 +1,167 @@
+{
+    "dataset_basic_info": {
+        "total_records": 148326,
+        "total_columns": 2,
+        "column_names": [
+            "query",
+            "label"
+        ],
+        "memory_usage_mb": 60.94,
+        "file_size_description": "60.94 MB",
+        "console_summary": {
+            "total_records_formatted": "Total Records: 148,326",
+            "total_columns_formatted": "Total Columns: 2",
+            "memory_usage_formatted": "Memory Usage: 60.94 MB",
+            "column_names_formatted": "Column Names: ['query', 'label']"
+        }
+    },
+    "class_distribution": {
+        "summary": {
+            "0": 70576,
+            "1": 77750
+        },
+        "detailed_stats": {
+            "class_0_normal_safe": {
+                "label": "0",
+                "name": "Normal/Safe",
+                "count": 70576,
+                "percentage": 47.6,
+                "formatted_display": "0 (Normal/Safe): 70,576 (47.6%)",
+                "query_stats": {
+                    "avg_length": 341.8,
+                    "median_length": 280.0,
+                    "min_length": 1,
+                    "max_length": 5370,
+                    "std_length": 297.9
+                }
+            },
+            "class_1_malicious": {
+                "label": "1",
+                "name": "Malicious",
+                "count": 77750,
+                "percentage": 52.4,
+                "formatted_display": "1 (Malicious): 77,750 (52.4%)",
+                "query_stats": {
+                    "avg_length": 385.1,
+                    "median_length": 318.0,
+                    "min_length": 1,
+                    "max_length": 1340,
+                    "std_length": 291.6
+                }
+            }
+        },
+        "console_display": {
+            "class_0_formatted": "0 (Normal/Safe): 70,576 (47.6%)",
+            "class_1_formatted": "1 (Malicious): 77,750 (52.4%)"
+        },
+        "balance_analysis": {
+            "balance_ratio": 1.1,
+            "balance_ratio_formatted": "Balance Ratio: 1.10:1",
+            "balance_quality": "EXCELLENT",
+            "balance_quality_formatted": "Balance Quality: EXCELLENT ",
+            "quality_assessment": "Minimal imbalance, ideal for training"
+        }
+    },
+    "query_statistics": {
+        "overall": {
+            "average_length": 364.5,
+            "median_length": 302.0,
+            "min_length": 1,
+            "max_length": 5370,
+            "std_deviation": 295.4
+        },
+        "by_class": {
+            "class_0_normal_safe": {
+                "label": "0",
+                "name": "Normal/Safe",
+                "count": 70576,
+                "percentage": 47.6,
+                "formatted_display": "0 (Normal/Safe): 70,576 (47.6%)",
+                "query_stats": {
+                    "avg_length": 341.8,
+                    "median_length": 280.0,
+                    "min_length": 1,
+                    "max_length": 5370,
+                    "std_length": 297.9
+                }
+            },
+            "class_1_malicious": {
+                "label": "1",
+                "name": "Malicious",
+                "count": 77750,
+                "percentage": 52.4,
+                "formatted_display": "1 (Malicious): 77,750 (52.4%)",
+                "query_stats": {
+                    "avg_length": 385.1,
+                    "median_length": 318.0,
+                    "min_length": 1,
+                    "max_length": 1340,
+                    "std_length": 291.6
+                }
+            }
+        },
+        "length_distribution": {
+            "short_queries_under_50": 22520,
+            "short_percentage": 15.2,
+            "medium_queries_50_200": 36825,
+            "medium_percentage": 24.8,
+            "long_queries_over_200": 88981,
+            "long_percentage": 60.0
+        }
+    },
+    "data_quality": {
+        "missing_values": {
+            "query": 0,
+            "label": 0
+        },
+        "missing_values_total": 0,
+        "has_missing_values": false,
+        "data_types": {
+            "query": "object",
+            "label": "int64"
+        },
+        "duplicate_count": 0,
+        "quality_status": "EXCELLENT"
+    },
+    "sample_data": {
+        "normal_queries_samples": [
+            "99745017c",
+            "ejerci78",
+            "47209"
+        ],
+        "malicious_queries_samples": [
+            "\" or pg_sleep  (  __TIME__  )  --",
+            "create user name identified by pass123 temporary tablespace temp default tablespace users;",
+            " AND 1  =  utl_inaddr.get_host_address   (    (   SELECT DISTINCT  (  table_name  )   FROM   (  SELECT DISTINCT  (  table_name  )  , ROWNUM AS LIMIT FROM sys.all_tables  )   WHERE LIMIT  =  5   )    )    AND 'i'  =  'i"
+        ],
+        "random_samples": [
+            "\" or pg_sleep  (  __TIME__  )  --",
+            "create user name identified by pass123 temporary tablespace temp default tablespace users;",
+            " AND 1  =  utl_inaddr.get_host_address   (    (   SELECT DISTINCT  (  table_name  )   FROM   (  SELECT DISTINCT  (  table_name  )  , ROWNUM AS LIMIT FROM sys.all_tables  )   WHERE LIMIT  =  5   )    )    AND 'i'  =  'i",
+            " select * from users where id  =  '1' or @ @1  =  1 union select 1,version  (    )   -- 1'",
+            " select * from users where id  =  1 or 1#\"  (   union select 1,version  (    )   -- 1"
+        ]
+    },
+    "files_generated": [
+        "c:\\Users\\nisha\\OneDrive\\Desktop\\Major-Project\\Malicious-Query-detection-and-prevention\\reports\\dataset_overview.json",
+        "data/processed/task2_results.json"
+    ],
+    "project_status": {
+        "ready_for_next_task": true,
+        "next_task": "Task 3: Exploratory Data Analysis",
+        "recommendations": [
+            "Dataset quality is excellent for ML training",
+            "Class balance is ideal - no special handling needed",
+            "Proceed with confidence to EDA phase",
+            "Consider query length analysis in EDA"
+        ]
+    },
+    "dataset_loaded": true,
+    "balance_ratio": 1.1016492859,
+    "ready_for_eda": true,
+    "columns": [
+        "query",
+        "label"
+    ],
+    "file_size_mb": 60.94
+}
