@@ -1,0 +1,180 @@
+{
+    "task_info": {
+        "task": " Dataset Preprocessing & Cleaning"
+    },
+    "source_data": {
+        "loading_method": "CSV file loaded via pandas",
+        "original_records": 143210,
+        "original_columns": 2,
+        "source_quality": "Raw dataset"
+    },
+    "cleaning_operations": {
+        "operations_performed": [
+            "Missing value removal",
+            "Duplicate removal",
+            "Short query filtering (<10 chars)",
+            "Edge case handling",
+            "Whitespace standardization"
+        ],
+        "records_removed": 10813,
+        "retention_rate": 0.9244954961245723,
+        "cleaning_log": [
+            "Complete duplicates removed: 4",
+            "Query duplicates removed: 10,775",
+            "Short queries removed: 34"
+        ]
+    },
+    "feature_engineering": {
+        "total_features_created": 54,
+        "feature_categories": {
+            "query_structure": [
+                "query_length",
+                "word_count",
+                "avg_word_length"
+            ],
+            "character_analysis": [
+                "special_char_count",
+                "special_char_ratio",
+                "numeric_char_count",
+                "numeric_char_ratio",
+                "uppercase_count",
+                "lowercase_count",
+                "uppercase_ratio",
+                "alphabetic_ratio"
+            ],
+            "quote_manipulation": [
+                "single_quote_count",
+                "double_quote_count",
+                "total_quote_count",
+                "quote_ratio"
+            ],
+            "comment_injection": [
+                "has_sql_comment",
+                "has_hash_comment",
+                "has_multiline_comment_start",
+                "has_multiline_comment_end",
+                "total_comment_indicators"
+            ],
+            "union_injection": [
+                "has_union",
+                "has_union_select",
+                "has_union_all"
+            ],
+            "sql_keywords": [
+                "has_select",
+                "has_insert",
+                "has_update",
+                "has_delete",
+                "has_from",
+                "has_where",
+                "has_order",
+                "has_group",
+                "has_join",
+                "has_having",
+                "sql_keyword_count",
+                "sql_keyword_density"
+            ],
+            "boolean_injection": [
+                "has_or_condition",
+                "has_and_condition",
+                "has_equals_pattern",
+                "has_tautology"
+            ],
+            "advanced_patterns": [
+                "has_semicolon",
+                "semicolon_count",
+                "has_drop_table",
+                "has_information_schema",
+                "has_system_functions",
+                "parentheses_count",
+                "parentheses_ratio"
+            ],
+            "outlier_indicators": [
+                "is_query_length_outlier",
+                "is_query_length_extreme",
+                "is_word_count_outlier",
+                "is_word_count_extreme",
+                "is_special_char_count_outlier",
+                "is_special_char_count_extreme",
+                "is_sql_keyword_count_outlier",
+                "is_sql_keyword_count_extreme"
+            ]
+        },
+        "eda_recommendations_implemented": [
+            "EDA Recommendation #1: Query length features",
+            "EDA Recommendation #3: SQL keyword density features",
+            "EDA Recommendation #4: Special character features",
+            "EDA Recommendation #7: Short query filtering",
+            "EDA Recommendation #8: Comment injection features",
+            "EDA Recommendation #9: UNION-based injection features",
+            "EDA Finding #4: Quote manipulation pattern features"
+        ]
+    },
+    "outlier_analysis": {
+        "approach": "Security-focused (retention)",
+        "outliers_removed": 0,
+        "outliers_flagged": 8,
+        "rationale": "Outliers retained as they often represent sophisticated attacks",
+        "outlier_summary": {
+            "query_length": {
+                "count": 1,
+                "percentage": 0.0007553041232052086,
+                "bounds": {
+                    "lower": -671.0,
+                    "upper": 1425.0
+                }
+            },
+            "word_count": {
+                "count": 207,
+                "percentage": 0.15634795350347816,
+                "bounds": {
+                    "lower": -92.0,
+                    "upper": 188.0
+                }
+            },
+            "special_char_count": {
+                "count": 12659,
+                "percentage": 9.561394895654736,
+                "bounds": {
+                    "lower": -34.5,
+                    "upper": 73.5
+                }
+            },
+            "sql_keyword_count": {
+                "count": 8,
+                "percentage": 0.0060424329856416685,
+                "bounds": {
+                    "lower": -3.0,
+                    "upper": 5.0
+                }
+            }
+        }
+    },
+    "final_dataset": {
+        "total_records": 132397,
+        "total_columns": 56,
+        "total_features": 54,
+        "memory_usage_mb": 97.2317008972168,
+        "class_distribution": {
+            "0": "65656",
+            "1": "66741"
+        },
+        "class_balance_ratio": 1.0165255269891555
+    },
+    "validation_results": {
+        "total_records": 132397,
+        "total_features": 54,
+        "missing_values": "0",
+        "duplicates": "0",
+        "data_types_correct": true,
+        "class_balance_maintained": true,
+        "feature_quality": true,
+        "validation_errors": [],
+        "overall_quality": "EXCELLENT "
+    },
+    "next_steps": {
+        "ready_for_cnn_preprocessing": true,
+        "recommended_next_task": "Task 5: CNN-Specific Data Preprocessing",
+        "notes": "Dataset is cleaned and feature-engineered for advanced ML modeling"
+    }
+}
