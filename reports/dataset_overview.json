@@ -1,0 +1,25 @@
+{
+    "total_records": 148326,
+    "total_columns": 2,
+    "columns": [
+        "query",
+        "label"
+    ],
+    "class_distribution": {
+        "0": 70576,
+        "1": 77750
+    },
+    "balance_ratio": 1.1016492858762186,
+    "missing_values": {
+        "query": 0,
+        "label": 0
+    },
+    "memory_usage_mb": 60.94039058685303,
+    "query_stats": {
+        "avg_length": 364.4947615387727,
+        "median_length": 302.0,
+        "min_length": "1",
+        "max_length": "5370",
+        "std_length": 295.3856651583709
+    }
+}

@@ -3,30 +3,26 @@
     "version": "1.0.0",
     "author": "Nishanth,Harsha,Amogh,Kshitij",
     "description": "Hybrid SQL injection detection system combining rule-based filtering with deep learning",
-    
     "data_paths": {
-        "raw_data": "data/raw/",
-        "processed_data": "data/processed/", 
+        "raw_data": "c:\\Users\\nisha\\OneDrive\\Desktop\\Major-Project\\Malicious-Query-detection-and-prevention\\data\\raw",
+        "processed_data": "c:\\Users\\nisha\\OneDrive\\Desktop\\Major-Project\\Malicious-Query-detection-and-prevention\\data\\processed",
         "models": "data/models/",
-        "reports": "reports/",
+        "reports": "c:\\Users\\nisha\\OneDrive\\Desktop\\Major-Project\\Malicious-Query-detection-and-prevention\\reports",
         "logs": "logs/"
     },
-    
     "dataset_config": {
         "total_samples": 148326,
         "malicious_samples": 77750,
         "normal_samples": 70576,
-        "balance_ratio": 1.10,
+        "balance_ratio": 1.1,
         "quality_status": "excellent"
     },
-    
     "preprocessing_config": {
         "max_query_length": 500,
         "min_query_length": 5,
         "remove_duplicates": true,
         "normalize_sql": true
     },
-    
     "model_config": {
         "max_sequence_length": 200,
         "embedding_dim": 128,
@@ -35,10 +31,14 @@
         "validation_split": 0.2,
         "test_split": 0.2
     },
-    
     "rule_config": {
         "confidence_threshold": 0.8,
         "enable_logging": true,
-        "rule_categories": ["union", "boolean", "time_based", "error_based"]
+        "rule_categories": [
+            "union",
+            "boolean",
+            "time_based",
+            "error_based"
+        ]
     }
 }
