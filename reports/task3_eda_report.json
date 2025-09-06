@@ -1,0 +1,228 @@
+{
+    "task_info": {
+        "task": "Task 3: Exploratory Data Analysis (EDA)",
+        "timestamp": "2025-09-06T13:46:46.421045",
+        "status": "COMPLETED"
+    },
+    "dataset_summary": {
+        "total_records": 148326,
+        "columns": [
+            "query",
+            "label",
+            "query_length",
+            "word_count",
+            "special_char_count",
+            "uppercase_ratio"
+        ],
+        "memory_usage_mb": 65.46694087982178,
+        "class_distribution": {
+            "0": "70576",
+            "1": "77750"
+        },
+        "balance_ratio": 1.1016492858762186,
+        "balance_quality": "EXCELLENT"
+    },
+    "analysis_results": {
+        "query_characteristics": {
+            "overall_statistics": {
+                "avg_length": 364.4947615387727,
+                "median_length": 302.0,
+                "max_length": "5370",
+                "min_length": "1",
+                "std_length": 295.3856651583709,
+                "avg_words": 48.40309183824818,
+                "avg_special_chars": 34.77917559969257
+            },
+            "class_statistics": {
+                "Normal": {
+                    "count": 70576,
+                    "avg_length": 341.82335354794833,
+                    "avg_words": 60.646253683971885,
+                    "avg_special_chars": 13.403649965994106
+                },
+                "Malicious": {
+                    "count": 77750,
+                    "avg_length": 385.07427652733116,
+                    "avg_words": 37.289607717041804,
+                    "avg_special_chars": 54.18237942122187
+                }
+            }
+        },
+        "sql_patterns": {
+            "top_keywords": {
+                "SELECT": "60989",
+                "FROM": "51004",
+                "WHERE": "36612",
+                "UNION": "14941",
+                "COUNT": "11949",
+                "INTO": "6531",
+                "HAVING": "2495",
+                "SET": "2308",
+                "ORDER BY": "2162",
+                "GROUP BY": "1855",
+                "JOIN": "1064",
+                "VALUES": "1038",
+                "DISTINCT": "764",
+                "AVG": "759",
+                "DATABASE": "726"
+            },
+            "command_types": {
+                "OTHER": 119005,
+                "CREATE": 16,
+                "SELECT": 15581,
+                "INSERT": 231,
+                "UNION": 13043,
+                "DELETE": 223,
+                "UPDATE": 224,
+                "DROP": 1,
+                "ALTER": 2
+            }
+        },
+        "injection_patterns": {
+            "pattern_frequency": {
+                "Union-based": {
+                    "count": "14436",
+                    "percentage": 9.732615994498603
+                },
+                "Boolean-based": {
+                    "count": "1483",
+                    "percentage": 0.9998247104351226
+                },
+                "Error-based": {
+                    "count": "2591",
+                    "percentage": 1.7468279330663539
+                },
+                "Time-based": {
+                    "count": "10335",
+                    "percentage": 6.9677602038752475
+                },
+                "Comment injection": {
+                    "count": "54580",
+                    "percentage": 36.79732481156372
+                },
+                "Quote manipulation": {
+                    "count": "67683",
+                    "percentage": 45.63124469074876
+                },
+                "Stacked queries": {
+                    "count": "16997",
+                    "percentage": 11.459218208540648
+                },
+                "System functions": {
+                    "count": "737",
+                    "percentage": 0.49687849736391465
+                }
+            },
+            "class_pattern_analysis": {
+                "Normal": {
+                    "Union-based": {
+                        "count": "323",
+                        "percentage": 0.45766266152799817
+                    },
+                    "Boolean-based": {
+                        "count": "3",
+                        "percentage": 0.004250736794377692
+                    },
+                    "Error-based": {
+                        "count": "0",
+                        "percentage": 0.0
+                    },
+                    "Time-based": {
+                        "count": "4",
+                        "percentage": 0.005667649059170256
+                    },
+                    "Comment injection": {
+                        "count": "2092",
+                        "percentage": 2.964180457946044
+                    },
+                    "Quote manipulation": {
+                        "count": "32079",
+                        "percentage": 45.453128542280666
+                    },
+                    "Stacked queries": {
+                        "count": "2932",
+                        "percentage": 4.154386760371798
+                    },
+                    "System functions": {
+                        "count": "0",
+                        "percentage": 0.0
+                    }
+                },
+                "Malicious": {
+                    "Union-based": {
+                        "count": "14113",
+                        "percentage": 18.151768488745983
+                    },
+                    "Boolean-based": {
+                        "count": "1480",
+                        "percentage": 1.9035369774919615
+                    },
+                    "Error-based": {
+                        "count": "2591",
+                        "percentage": 3.332475884244373
+                    },
+                    "Time-based": {
+                        "count": "10331",
+                        "percentage": 13.287459807073956
+                    },
+                    "Comment injection": {
+                        "count": "52488",
+                        "percentage": 67.50868167202573
+                    },
+                    "Quote manipulation": {
+                        "count": "35604",
+                        "percentage": 45.792926045016074
+                    },
+                    "Stacked queries": {
+                        "count": "14065",
+                        "percentage": 18.090032154340836
+                    },
+                    "System functions": {
+                        "count": "737",
+                        "percentage": 0.9479099678456593
+                    }
+                }
+            }
+        },
+        "data_quality": {
+            "quality_issues": {
+                "null_queries": "0",
+                "empty_queries": "0",
+                "very_short_queries": "5116",
+                "very_long_queries": "53",
+                "duplicate_queries": "0"
+            },
+            "overall_quality": "NEEDS",
+            "total_issues": "5169"
+        }
+    },
+    "key_insights": [
+        "Dataset has excellent class balance (1.10:1 ratio) - ideal for ML training",
+        "Malicious queries are 1.1x longer than normal queries (385 vs 342 chars)",
+        "'SELECT' is the most frequent SQL keyword (60,989 occurrences)",
+        "'Quote manipulation' is the most common injection pattern (67,683 cases)",
+        "Dataset quality is NEEDS with minimal issues (5,169 issues total)"
+    ],
+    "recommendations": [
+        "Use query length as a key feature for ML models",
+        "Implement character-level analysis for injection pattern detection",
+        "Create keyword density features based on SQL command frequency",
+        "Create features for special character ratios and patterns",
+        "Develop n-gram features for capturing injection signatures",
+        "Consider word embeddings for SQL tokens",
+        "Filter out very short queries (<10 chars) as they may not be meaningful",
+        "Focus on detecting comment injection patterns (-- and /* */)",
+        "Implement specific rules for UNION-based injection detection"
+    ],
+    "visualizations_created": [
+        "../reports/visualizations/class_distribution.png",
+        "../reports/visualizations/query_characteristics.png",
+        "../reports/visualizations/sql_keywords.png",
+        "../reports/visualizations/injection_patterns.png"
+    ],
+    "project_status": {
+        "ready_for_next_task": true,
+        "next_task": "Task 4: Data Preprocessing for CNN",
+        "eda_quality": "COMPREHENSIVE"
+    }
+}
