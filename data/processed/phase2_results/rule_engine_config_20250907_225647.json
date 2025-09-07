@@ -1,0 +1,151 @@
+{
+    "rules": {
+        "union_based": {
+            "patterns": [
+                "\\bunion\\s+(?:all\\s+)?select\\b",
+                "\\bunion\\s+(?:distinct\\s+)?select\\b",
+                "\\)\\s*union\\s+(?:all\\s+)?select\\b",
+                "union.*?select.*?from",
+                "select.*?union.*?select"
+            ],
+            "description": "Detects UNION-based SQL injection attacks",
+            "severity": "HIGH",
+            "examples": [
+                "1' UNION SELECT username, password FROM users--",
+                "') UNION ALL SELECT table_name FROM information_schema.tables--"
+            ]
+        },
+        "boolean_based": {
+            "patterns": [
+                "\\b(and|or)\\s+\\d+\\s*=\\s*\\d+",
+                "\\b(and|or)\\s+[\\'\"`]\\w*[\\'\"`]\\s*=\\s*[\\'\"`]\\w*[\\'\"`]",
+                "(and|or)\\s+1\\s*=\\s*1",
+                "(and|or)\\s+1\\s*=\\s*0",
+                "\\'\\s*(and|or)\\s*\\'.*?\\'\\s*=\\s*\\'",
+                "1\\s*=\\s*1(\\s|;|--|#|/\\*)",
+                "true\\s*=\\s*true",
+                "false\\s*=\\s*false",
+                "admin.*=.*admin",
+                "admin.*=.*admin"
+            ],
+            "description": "Detects boolean-based SQL injection attacks",
+            "severity": "HIGH",
+            "examples": [
+                "1' AND '1'='1'--",
+                "admin' OR 1=1--",
+                "' OR 'x'='x"
+            ]
+        },
+        "time_based": {
+            "patterns": [
+                "\\bsleep\\s*\\(\\s*\\d+\\s*\\)",
+                "\\bwaitfor\\s+delay\\s*[\\'\"`]\\d+:\\d+:\\d+[\\'\"`]",
+                "\\bbenchmark\\s*\\(\\s*\\d+\\s*,",
+                "\\bpg_sleep\\s*\\(\\s*\\d+\\s*\\)",
+                "sleep\\(\\d+\\)",
+                "benchmark\\s*\\(\\s*\\d+",
+                "waitfor\\s+delay",
+                "dbms_pipe\\.receive_message"
+            ],
+            "description": "Detects time-based blind SQL injection attacks",
+            "severity": "HIGH",
+            "examples": [
+                "1'; WAITFOR DELAY '00:00:05'--",
+                "1' AND (SELECT SLEEP(5))--",
+                "'; SELECT BENCHMARK(1000000, MD5(1))--"
+            ]
+        },
+        "error_based": {
+            "patterns": [
+                "\\bextractvalue\\s*\\(",
+                "\\bupdatexml\\s*\\(",
+                "\\bfloor\\s*\\(\\s*rand\\s*\\(\\s*0\\s*\\)\\s*\\*\\s*2\\s*\\)",
+                "\\bexp\\s*\\(\\s*~\\s*\\(select",
+                "geometrycollection\\s*\\(",
+                "multipoint\\s*\\(",
+                "polygon\\s*\\(",
+                "linestring\\s*\\(",
+                "cast\\s*\\(\\s*0x.*?\\s+as\\s+",
+                "convert\\s*\\(\\s*int\\s*,"
+            ],
+            "description": "Detects error-based SQL injection attacks",
+            "severity": "MEDIUM",
+            "examples": [
+                "1' AND EXTRACTVALUE(1, CONCAT(0x7e, (SELECT @@version), 0x7e))--",
+                "1' AND (SELECT COUNT(*) FROM information_schema.tables GROUP BY CONCAT(version(), FLOOR(RAND(0)*2)))--"
+            ]
+        },
+        "comment_stacked": {
+            "patterns": [
+                "--[\\s\\S]*$",
+                "/\\*[\\s\\S]*?\\*/",
+                "#.*$",
+                ";\\s*drop\\s+table",
+                ";\\s*delete\\s+from",
+                ";\\s*insert\\s+into",
+                ";\\s*update\\s+\\w+\\s+set",
+                ";\\s*create\\s+table",
+                ";\\s*alter\\s+table",
+                ";\\s*truncate\\s+table"
+            ],
+            "description": "Detects comment-based evasion and stacked queries",
+            "severity": "HIGH",
+            "examples": [
+                "1'; DROP TABLE users;--",
+                "admin'/*comment*/OR/*comment*/1=1--",
+                "1#comment\nOR 1=1"
+            ],
+            "enabled": true
+        },
+        "db_functions": {
+            "patterns": [
+                "\\bxp_cmdshell\\b",
+                "\\bsp_executesql\\b",
+                "\\bopenquery\\b",
+                "\\bopenrowset\\b",
+                "\\bload_file\\s*\\(",
+                "\\binto\\s+outfile\\b",
+                "@@version",
+                "@@servername",
+                "user\\(\\)",
+                "database\\(\\)",
+                "version\\(\\)",
+                "current_user",
+                "system_user"
+            ],
+            "description": "Detects database-specific function exploitation",
+            "severity": "HIGH",
+            "examples": [
+                "1'; EXEC xp_cmdshell('dir')--",
+                "1' UNION SELECT @@version--",
+                "1' AND 1=2 UNION SELECT LOAD_FILE('/etc/passwd')--"
+            ]
+        },
+        "system_commands": {
+            "patterns": [
+                "xp_cmdshell",
+                "sp_oacreate",
+                "shell\\s*\\("
+            ],
+            "description": "Detects system command execution attempts",
+            "severity": "CRITICAL",
+            "enabled": true
+        }
+    },
+    "detection_stats": {
+        "total_queries": 86,
+        "malicious_detected": 58,
+        "false_positives": 0,
+        "rule_matches": {
+            "boolean_based": 16,
+            "comment_stacked": 53,
+            "union_based": 12,
+            "time_based": 8,
+            "error_based": 6,
+            "db_functions": 16,
+            "system_commands": 2
+        }
+    },
+    "total_patterns": 59,
+    "enabled_categories": 7
+}
