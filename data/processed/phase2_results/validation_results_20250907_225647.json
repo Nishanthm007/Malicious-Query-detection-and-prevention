@@ -1,0 +1,328 @@
+{
+    "malicious_results": [
+        {
+            "query": "1' UNION SELECT username, password FROM users--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "union_based",
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "') UNION ALL SELECT table_name FROM information_schema.tables--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "union_based",
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "1 UNION SELECT @@version, user()--",
+            "detected": true,
+            "confidence": 1.0,
+            "matched_rules": [
+                "union_based",
+                "comment_stacked",
+                "db_functions"
+            ]
+        },
+        {
+            "query": "1' AND '1'='1'--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "boolean_based",
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "admin' OR 1=1--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "boolean_based",
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "' OR 'x'='x",
+            "detected": true,
+            "confidence": 0.4,
+            "matched_rules": [
+                "boolean_based"
+            ]
+        },
+        {
+            "query": "1' AND 1=1 AND '1'='1",
+            "detected": true,
+            "confidence": 0.4,
+            "matched_rules": [
+                "boolean_based"
+            ]
+        },
+        {
+            "query": "1'; WAITFOR DELAY '00:00:05'--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "time_based",
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "1' AND (SELECT SLEEP(5))--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "time_based",
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "'; SELECT BENCHMARK(1000000, MD5(1))--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "time_based",
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "1' AND (SELECT pg_sleep(5))--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "time_based",
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "1' AND EXTRACTVALUE(1, CONCAT(0x7e, (SELECT @@version), 0x7e))--",
+            "detected": true,
+            "confidence": 1.0,
+            "matched_rules": [
+                "error_based",
+                "comment_stacked",
+                "db_functions"
+            ]
+        },
+        {
+            "query": "1' AND (SELECT COUNT(*) FROM information_schema.tables GROUP BY CONCAT(version(), FLOOR(RAND(0)*2)))...",
+            "detected": true,
+            "confidence": 1.0,
+            "matched_rules": [
+                "error_based",
+                "comment_stacked",
+                "db_functions"
+            ]
+        },
+        {
+            "query": "1' AND UPDATEXML(1, CONCAT(0x7e, (SELECT @@version), 0x7e), 1)--",
+            "detected": true,
+            "confidence": 1.0,
+            "matched_rules": [
+                "error_based",
+                "comment_stacked",
+                "db_functions"
+            ]
+        },
+        {
+            "query": "1'; DROP TABLE users;--",
+            "detected": true,
+            "confidence": 0.4,
+            "matched_rules": [
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "admin'/*comment*/OR/*comment*/1=1--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "boolean_based",
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "1#comment\nOR 1=1",
+            "detected": true,
+            "confidence": 0.4,
+            "matched_rules": [
+                "boolean_based"
+            ]
+        },
+        {
+            "query": "1' OR '1'='1' /*",
+            "detected": true,
+            "confidence": 0.4,
+            "matched_rules": [
+                "boolean_based"
+            ]
+        },
+        {
+            "query": "1' UNION SELECT @@version--",
+            "detected": true,
+            "confidence": 1.0,
+            "matched_rules": [
+                "union_based",
+                "comment_stacked",
+                "db_functions"
+            ]
+        },
+        {
+            "query": "1'; EXEC xp_cmdshell('dir')--",
+            "detected": true,
+            "confidence": 0.9,
+            "matched_rules": [
+                "comment_stacked",
+                "db_functions",
+                "system_commands"
+            ]
+        },
+        {
+            "query": "1' AND 1=2 UNION SELECT LOAD_FILE('/etc/passwd')--",
+            "detected": true,
+            "confidence": 1.0,
+            "matched_rules": [
+                "union_based",
+                "boolean_based",
+                "comment_stacked",
+                "db_functions"
+            ]
+        },
+        {
+            "query": "1' AND (SELECT SUBSTRING(@@version,1,1))='5'--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "comment_stacked",
+                "db_functions"
+            ]
+        },
+        {
+            "query": "1' OR (SELECT COUNT(*) FROM sysobjects)>0--",
+            "detected": true,
+            "confidence": 0.4,
+            "matched_rules": [
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "1' UNION SELECT null,null,null FROM dual WHERE 1=2--",
+            "detected": true,
+            "confidence": 0.8,
+            "matched_rules": [
+                "union_based",
+                "comment_stacked"
+            ]
+        }
+    ],
+    "normal_results": [
+        {
+            "query": "SELECT * FROM users WHERE id = 1",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "SELECT name, email FROM customers WHERE active = 1",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "INSERT INTO products (name, price) VALUES ('laptop', 999.99)",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "UPDATE inventory SET quantity = 50 WHERE product_id = 123",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "DELETE FROM logs WHERE date < '2023-01-01'",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "SELECT * FROM articles WHERE title LIKE '%SQL%'",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "SELECT comment FROM reviews WHERE rating = 5",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "SELECT description FROM products WHERE category = 'electronics & gadgets'",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "INSERT INTO messages (content) VALUES ('Order #12345 processed')",
+            "detected": true,
+            "confidence": 0.4,
+            "matched_rules": [
+                "comment_stacked"
+            ]
+        },
+        {
+            "query": "SELECT * FROM events WHERE date_time >= '2023-01-01 00:00:00'",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "SELECT * FROM users WHERE name = 'John O''Connor'",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "SELECT * FROM products WHERE price BETWEEN 10 AND 100",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "SELECT * FROM orders WHERE status IN ('pending', 'shipped')",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "SELECT COUNT(*) FROM transactions WHERE amount > 0",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        },
+        {
+            "query": "SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM users",
+            "detected": false,
+            "confidence": 0.0,
+            "matched_rules": []
+        }
+    ],
+    "summary": {
+        "true_positives": 24,
+        "false_negatives": 0,
+        "false_positives": 1,
+        "true_negatives": 14,
+        "precision": 0.96,
+        "recall": 1.0,
+        "f1_score": 0.9796,
+        "accuracy": 0.9744,
+        "specificity": 0.9333,
+        "false_positive_rate": 0.0667
+    }
+}
