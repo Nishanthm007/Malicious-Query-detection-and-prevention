@@ -1,0 +1,27 @@
+{
+    "task_info": {
+        "task": "Train/Validation/Test Split Strategy"
+    },
+    "split_strategy": {
+        "method": "Stratified Split",
+        "strategy_type": "70/15/15 (Large Dataset Strategy)",
+        "train_ratio": 0.7,
+        "validation_ratio": 0.15,
+        "test_ratio": 0.15
+    },
+    "split_results": {
+        "train_size": 92677,
+        "validation_size": 19860,
+        "test_size": 19860
+    },
+    "quality_checks": {
+        "data_leakage_free": false,
+        "stratification_successful": true,
+        "class_balance_maintained": true
+    },
+    "output_files": [
+        "train_set.csv",
+        "validation_set.csv",
+        "test_set.csv"
+    ]
+}
