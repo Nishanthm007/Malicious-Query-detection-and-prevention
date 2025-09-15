@@ -1,0 +1,28 @@
+[
+    {
+        "timestamp": "2025-09-07T22:39:28.739597",
+        "total_rules": 7,
+        "enabled_rules": 7,
+        "total_patterns": 59,
+        "queries_processed": 51,
+        "detections_made": 35,
+        "true_positives": 24,
+        "false_negatives": 0,
+        "false_positives": 1,
+        "true_negatives": 14,
+        "precision": 0.96,
+        "recall": 1.0,
+        "f1_score": 0.9796,
+        "accuracy": 0.9744,
+        "specificity": 0.9333,
+        "false_positive_rate": 0.0667,
+        "detection_efficiency": 0.6862745098039216,
+        "boolean_based_effectiveness": 0.29411764705882354,
+        "comment_stacked_effectiveness": 0.6274509803921569,
+        "union_based_effectiveness": 0.13725490196078433,
+        "time_based_effectiveness": 0.09803921568627451,
+        "error_based_effectiveness": 0.0784313725490196,
+        "db_functions_effectiveness": 0.17647058823529413,
+        "system_commands_effectiveness": 0.0196078431372549
+    }
+]

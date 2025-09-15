@@ -1,0 +1,19 @@
+{
+    "dataset_info": {
+        "total_samples in training data": 55658,
+        "normal_samples": 18796,
+        "malicious_samples": 36862,
+        "normal_percentage": 33.7705271479392,
+        "malicious_percentage": 66.2294728520608,
+        "balance_ratio": "1.96:1"
+    },
+    "class_weights": {
+        "0": 1.4805809746754628,
+        "1": 0.7549508979436819
+    },
+    "usage_notes": [
+        "Use these weights in model.fit() with class_weight parameter",
+        "Weights compensate for class imbalance in training data",
+        "Load this file in Phase 2 CNN training notebook"
+    ]
+}
