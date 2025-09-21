@@ -1,0 +1,50 @@
+{
+  "phase": "Phase 5 - CNN Model Training and Evaluation",
+  "completion_date": "2025-09-21T13:58:15.630889",
+  "status": "COMPLETED SUCCESSFULLY",
+  "training_results": {
+    "total_training_time": "17m 5s",
+    "epochs_completed": 18,
+    "early_stopping_method": "WeightedEarlyStopping",
+    "best_validation_accuracy": 0.9942,
+    "best_validation_loss": 0.0243,
+    "class_weights_used": {
+      "0": 1.4805809746754628,
+      "1": 0.7549508979436819
+    }
+  },
+  "validation_performance": {
+    "accuracy": 0.9941564404374321,
+    "precision": 0.9974515800203874,
+    "recall": 0.9936532114749936,
+    "f1_score": 0.9955487727330535,
+    "roc_auc": 0.9995526450399809
+  },
+  "test_performance": {
+    "accuracy": 0.9939668174962293,
+    "precision": 0.9966937945066124,
+    "recall": 0.9941653982749873,
+    "f1_score": 0.9954279908559818,
+    "roc_auc": 0.999611527644675
+  },
+  "deliverables_completed": {
+    "training_pipeline_implementation": true,
+    "class_weights_integration": true,
+    "early_stopping_checkpointing": true,
+    "training_validation_monitoring": true,
+    "batch_training_execution": true,
+    "learning_rate_scheduling": true,
+    "overfitting_prevention": true,
+    "performance_evaluation": true,
+    "training_curves_analysis": true,
+    "model_performance_assessment": true
+  },
+  "final_model_summary": {
+    "total_parameters": 6859409,
+    "architecture": "Multi-input 1D CNN",
+    "optimizer": "RMSprop",
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "regularization": "L2 (1e-5) + Dropout (0.5)"
+  }
+}
