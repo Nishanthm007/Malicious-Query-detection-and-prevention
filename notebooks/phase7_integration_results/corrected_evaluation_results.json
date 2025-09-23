@@ -1,0 +1,43 @@
+{
+  "evaluation_timestamp": "2025-09-24T00:17:51.420325",
+  "samples_evaluated": 1000,
+  "cnn_results": {
+    "accuracy": 0.997,
+    "precision": 1.0,
+    "recall": 0.9952830188679245,
+    "f1_score": 0.9976359338061466,
+    "auc": 0.99922247563757
+  },
+  "rule_based_results": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "auc": 1.0
+  },
+  "fusion_results": {
+    "performance_based": {
+      "accuracy": 0.998,
+      "precision": 1.0,
+      "recall": 0.9968553459119497,
+      "f1_score": 0.9984251968503937,
+      "auc": 1.0
+    },
+    "confidence_weighted": {
+      "accuracy": 0.997,
+      "precision": 1.0,
+      "recall": 0.9952830188679245,
+      "f1_score": 0.9976359338061466,
+      "auc": 0.9999913608404175
+    },
+    "balanced": {
+      "accuracy": 0.997,
+      "precision": 1.0,
+      "recall": 0.9952830188679245,
+      "f1_score": 0.9976359338061466,
+      "auc": 0.9999740825212523
+    }
+  },
+  "best_fusion_method": "performance_based",
+  "best_fusion_f1": 0.9984251968503937
+}

@@ -1,0 +1,106 @@
+{
+  "integration_timestamp": "2025-09-24T00:02:49.936889",
+  "file_status": {
+    "cnn_model": {
+      "available": true,
+      "size_mb": 51.523109436035156,
+      "path": "best_optimized_model_phase6.h5"
+    },
+    "test_word_data": {
+      "available": true,
+      "size_mb": 3.4144668579101562,
+      "path": "X_test_preprocessed.npy"
+    },
+    "test_char_data": {
+      "available": true,
+      "size_mb": 13.657501220703125,
+      "path": "test_char_sequences.npy"
+    },
+    "test_sql_features": {
+      "available": true,
+      "size_mb": 12.291763305664062,
+      "path": "test_sql_features.npy"
+    },
+    "test_labels": {
+      "available": true,
+      "size_mb": 0.0911712646484375,
+      "path": "y_test_labels.npy"
+    },
+    "embedding_matrix": {
+      "available": true,
+      "size_mb": 45.7764892578125,
+      "path": "embedding_matrix.npy"
+    },
+    "train_word_data": {
+      "available": true,
+      "size_mb": 15.924003601074219,
+      "path": "X_train_preprocessed.npy"
+    },
+    "val_word_data": {
+      "available": true,
+      "size_mb": 3.4273414611816406,
+      "path": "X_val_preprocessed.npy"
+    },
+    "train_char_data": {
+      "available": true,
+      "size_mb": 63.695648193359375,
+      "path": "train_char_sequences.npy"
+    },
+    "val_char_data": {
+      "available": true,
+      "size_mb": 13.708999633789062,
+      "path": "val_char_sequences.npy"
+    },
+    "train_sql_features": {
+      "available": true,
+      "size_mb": 57.32609558105469,
+      "path": "train_sql_features.npy"
+    },
+    "val_sql_features": {
+      "available": true,
+      "size_mb": 12.338111877441406,
+      "path": "val_sql_features.npy"
+    },
+    "train_labels": {
+      "available": true,
+      "size_mb": 0.4247589111328125,
+      "path": "y_train_labels.npy"
+    },
+    "val_labels": {
+      "available": true,
+      "size_mb": 0.09151458740234375,
+      "path": "y_val_labels.npy"
+    }
+  },
+  "real_data_loaded": true,
+  "fusion_config": {
+    "cnn_weight": 0.55,
+    "rule_weight": 0.45,
+    "fusion_threshold": 0.4,
+    "confidence_threshold": 0.6,
+    "method": "performance_based",
+    "source": "phase7_task1c_optimization"
+  },
+  "test_results_summary": {
+    "samples_tested": 100,
+    "avg_cnn_prediction": 0.6335631012916565,
+    "avg_rule_prediction": 0.327115,
+    "avg_fusion_prediction": 0.49566146413439655,
+    "avg_fusion_confidence": 0.6809559288578033,
+    "integration_successful": true
+  },
+  "rule_engine_stats": {
+    "total_categories": 8,
+    "total_patterns": 62,
+    "category_weights": {
+      "union_injection": 1.0,
+      "boolean_injection": 0.85,
+      "time_injection": 0.95,
+      "error_injection": 0.9,
+      "comment_injection": 0.7,
+      "information_disclosure": 0.9,
+      "command_execution": 0.98,
+      "bypass_techniques": 0.75
+    }
+  }
+}
