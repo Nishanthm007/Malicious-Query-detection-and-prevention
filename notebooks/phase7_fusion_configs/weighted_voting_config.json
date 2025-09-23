@@ -1,0 +1,1092 @@
+{
+  "voting_methods": {
+    "performance_based": {
+      "name": "Performance-Based Static Weighting",
+      "description": "Weights based on historical accuracy (CNN: 99.51%, Rule: 84.86%)",
+      "weights": {
+        "cnn": 0.7263,
+        "rule_based": 0.2737
+      },
+      "weight_type": "static"
+    },
+    "confidence_weighted": {
+      "name": "Confidence-Weighted Dynamic Voting",
+      "description": "Weights adjust based on individual prediction confidence",
+      "base_weights": {
+        "cnn": 0.65,
+        "rule_based": 0.35
+      },
+      "confidence_multiplier": 1.5,
+      "weight_type": "dynamic"
+    },
+    "exponential_confidence": {
+      "name": "Exponential Confidence Weighting",
+      "description": "Exponential scaling of weights based on confidence",
+      "base_weights": {
+        "cnn": 0.6,
+        "rule_based": 0.4
+      },
+      "confidence_exponent": 2.0,
+      "weight_type": "exponential"
+    },
+    "adaptive_threshold": {
+      "name": "Adaptive Threshold Voting",
+      "description": "Dynamic threshold adjustment based on confidence levels",
+      "base_threshold": 0.5,
+      "confidence_threshold_low": 0.4,
+      "confidence_threshold_high": 0.8,
+      "weight_type": "threshold_adaptive"
+    },
+    "ensemble_confidence": {
+      "name": "Ensemble Confidence Voting",
+      "description": "Meta-learning approach combining multiple voting methods",
+      "meta_weights": [
+        0.3,
+        0.25,
+        0.25,
+        0.2
+      ],
+      "weight_type": "ensemble"
+    }
+  },
+  "confidence_functions": {
+    "sigmoid": {
+      "name": "Sigmoid Confidence Scoring",
+      "description": "Sigmoid transformation for smooth confidence curves",
+      "steepness": 8.0,
+      "midpoint": 0.5
+    },
+    "entropy": {
+      "name": "Entropy-based Confidence",
+      "description": "Information entropy for uncertainty quantification",
+      "base_entropy": 1.0
+    },
+    "distance": {
+      "name": "Distance-based Confidence",
+      "description": "Distance from decision boundary (0.5)",
+      "boundary": 0.5,
+      "scaling_factor": 2.0
+    },
+    "variance": {
+      "name": "Prediction Variance Confidence",
+      "description": "Confidence based on prediction variance",
+      "variance_threshold": 0.1
+    }
+  },
+  "comprehensive_test_results": [
+    {
+      "scenario": {
+        "name": "High CNN Confidence - Clear Malicious",
+        "cnn_pred": 0.95,
+        "cnn_conf": 0.92,
+        "rule_pred": 0.78,
+        "rule_conf": 0.71,
+        "ground_truth": 1,
+        "scenario_type": "high_cnn_confidence"
+      },
+      "method_results": {
+        "performance_based": {
+          "prediction": 0.9034709999999999,
+          "confidence": 0.862523,
+          "method": "performance_based",
+          "weights_used": {
+            "cnn": 0.7263,
+            "rule_based": 0.2737
+          },
+          "details": {
+            "static_weights": true,
+            "cnn_contribution": 0.689985,
+            "rule_contribution": 0.213486
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "confidence_weighted": {
+          "prediction": 0.8935711979334839,
+          "confidence": 0.8502938327413627,
+          "method": "confidence_weighted",
+          "weights_used": {
+            "cnn": 0.6680658701969648,
+            "rule_based": 0.33193412980303516
+          },
+          "details": {
+            "base_weights": {
+              "cnn": 0.65,
+              "rule_based": 0.35
+            },
+            "confidence_adjustment": {
+              "cnn_boost": 0.8466257668711658,
+              "rule_boost": 0.6533742331288344
+            }
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "exponential_confidence": {
+          "prediction": 0.884272121436505,
+          "confidence": 0.8388067382450946,
+          "method": "exponential_confidence",
+          "weights_used": {
+            "cnn": 0.6133654202147353,
+            "rule_based": 0.3866345797852647
+          },
+          "details": {
+            "exponential_confidences": {
+              "cnn": 0.8464,
+              "rule_based": 0.5041
+            },
+            "exponent_used": 2.0
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "adaptive_threshold": {
+          "prediction": 1,
+          "confidence": 0.436025,
+          "method": "adaptive_threshold",
+          "weights_used": {
+            "cnn": 0.5,
+            "rule_based": 0.5
+          },
+          "details": {
+            "base_threshold": 0.5,
+            "adapted_threshold": 0.4,
+            "average_prediction": 0.865,
+            "threshold_adjustment": -0.09999999999999998
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "ensemble_confidence": {
+          "prediction": 0.9155021298424972,
+          "confidence": 0.7682370427466143,
+          "method": "ensemble_confidence",
+          "weights_used": {
+            "meta_weights": [
+              0.3,
+              0.25,
+              0.25,
+              0.2
+            ]
+          },
+          "details": {
+            "individual_predictions": [
+              0.9034709999999999,
+              0.8935711979334839,
+              0.884272121436505,
+              1
+            ],
+            "individual_confidences": [
+              0.862523,
+              0.8502938327413627,
+              0.8388067382450946,
+              0.436025
+            ],
+            "prediction_variance": 0.002161934716866837,
+            "confidence_variance": 0.03228726908700401,
+            "ensemble_agreement": 0.9978380652831331
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        }
+      }
+    },
+    {
+      "scenario": {
+        "name": "High Rule Confidence - Clear Malicious",
+        "cnn_pred": 0.67,
+        "cnn_conf": 0.58,
+        "rule_pred": 0.91,
+        "rule_conf": 0.89,
+        "ground_truth": 1,
+        "scenario_type": "high_rule_confidence"
+      },
+      "method_results": {
+        "performance_based": {
+          "prediction": 0.735688,
+          "confidence": 0.664847,
+          "method": "performance_based",
+          "weights_used": {
+            "cnn": 0.7263,
+            "rule_based": 0.2737
+          },
+          "details": {
+            "static_weights": true,
+            "cnn_contribution": 0.48662099999999997,
+            "rule_contribution": 0.249067
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "confidence_weighted": {
+          "prediction": 0.7561009667024705,
+          "confidence": 0.6912137486573577,
+          "method": "confidence_weighted",
+          "weights_used": {
+            "cnn": 0.6412459720730398,
+            "rule_based": 0.35875402792696026
+          },
+          "details": {
+            "base_weights": {
+              "cnn": 0.65,
+              "rule_based": 0.35
+            },
+            "confidence_adjustment": {
+              "cnn_boost": 0.5918367346938775,
+              "rule_boost": 0.9081632653061225
+            }
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "exponential_confidence": {
+          "prediction": 0.8022286220646877,
+          "confidence": 0.7507953035002215,
+          "method": "exponential_confidence",
+          "weights_used": {
+            "cnn": 0.4490474080638015,
+            "rule_based": 0.5509525919361985
+          },
+          "details": {
+            "exponential_confidences": {
+              "cnn": 0.3364,
+              "rule_based": 0.7921
+            },
+            "exponent_used": 2.0
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "adaptive_threshold": {
+          "prediction": 1,
+          "confidence": 0.5218499999999999,
+          "method": "adaptive_threshold",
+          "weights_used": {
+            "cnn": 0.5,
+            "rule_based": 0.5
+          },
+          "details": {
+            "base_threshold": 0.5,
+            "adapted_threshold": 0.5,
+            "average_prediction": 0.79,
+            "threshold_adjustment": 0.0
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "ensemble_confidence": {
+          "prediction": 0.8102887971917896,
+          "confidence": 0.6643263630393947,
+          "method": "ensemble_confidence",
+          "weights_used": {
+            "meta_weights": [
+              0.3,
+              0.25,
+              0.25,
+              0.2
+            ]
+          },
+          "details": {
+            "individual_predictions": [
+              0.735688,
+              0.7561009667024705,
+              0.8022286220646877,
+              1
+            ],
+            "individual_confidences": [
+              0.664847,
+              0.6912137486573577,
+              0.7507953035002215,
+              0.5218499999999999
+            ],
+            "prediction_variance": 0.010964574618841798,
+            "confidence_variance": 0.007073778209368806,
+            "ensemble_agreement": 0.9890354253811582
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        }
+      }
+    },
+    {
+      "scenario": {
+        "name": "Both High Confidence - Agreement",
+        "cnn_pred": 0.88,
+        "cnn_conf": 0.85,
+        "rule_pred": 0.84,
+        "rule_conf": 0.82,
+        "ground_truth": 1,
+        "scenario_type": "high_agreement"
+      },
+      "method_results": {
+        "performance_based": {
+          "prediction": 0.8690519999999999,
+          "confidence": 0.841789,
+          "method": "performance_based",
+          "weights_used": {
+            "cnn": 0.7263,
+            "rule_based": 0.2737
+          },
+          "details": {
+            "static_weights": true,
+            "cnn_contribution": 0.6391439999999999,
+            "rule_contribution": 0.229908
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "confidence_weighted": {
+          "prediction": 0.8663725181216515,
+          "confidence": 0.8397793885912386,
+          "method": "confidence_weighted",
+          "weights_used": {
+            "cnn": 0.6593129530412859,
+            "rule_based": 0.3406870469587141
+          },
+          "details": {
+            "base_weights": {
+              "cnn": 0.65,
+              "rule_based": 0.35
+            },
+            "confidence_adjustment": {
+              "cnn_boost": 0.7634730538922156,
+              "rule_boost": 0.7365269461077844
+            }
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "exponential_confidence": {
+          "prediction": 0.8623591655315792,
+          "confidence": 0.8367693741486845,
+          "method": "exponential_confidence",
+          "weights_used": {
+            "cnn": 0.5589791382894831,
+            "rule_based": 0.4410208617105169
+          },
+          "details": {
+            "exponential_confidences": {
+              "cnn": 0.7224999999999999,
+              "rule_based": 0.6723999999999999
+            },
+            "exponent_used": 2.0
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "adaptive_threshold": {
+          "prediction": 1,
+          "confidence": 0.4509,
+          "method": "adaptive_threshold",
+          "weights_used": {
+            "cnn": 0.5,
+            "rule_based": 0.5
+          },
+          "details": {
+            "base_threshold": 0.5,
+            "adapted_threshold": 0.4,
+            "average_prediction": 0.86,
+            "threshold_adjustment": -0.09999999999999998
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "ensemble_confidence": {
+          "prediction": 0.8928985209133076,
+          "confidence": 0.7618538906849808,
+          "method": "ensemble_confidence",
+          "weights_used": {
+            "meta_weights": [
+              0.3,
+              0.25,
+              0.25,
+              0.2
+            ]
+          },
+          "details": {
+            "individual_predictions": [
+              0.8690519999999999,
+              0.8663725181216515,
+              0.8623591655315792,
+              1
+            ],
+            "individual_confidences": [
+              0.841789,
+              0.8397793885912386,
+              0.8367693741486845,
+              0.4509
+            ],
+            "prediction_variance": 0.003376047661605119,
+            "confidence_variance": 0.02830967865416492,
+            "ensemble_agreement": 0.9966239523383948
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        }
+      }
+    },
+    {
+      "scenario": {
+        "name": "Clear Disagreement - CNN vs Rule",
+        "cnn_pred": 0.25,
+        "cnn_conf": 0.72,
+        "rule_pred": 0.85,
+        "rule_conf": 0.76,
+        "ground_truth": 0,
+        "scenario_type": "clear_disagreement"
+      },
+      "method_results": {
+        "performance_based": {
+          "prediction": 0.41422,
+          "confidence": 0.7309479999999999,
+          "method": "performance_based",
+          "weights_used": {
+            "cnn": 0.7263,
+            "rule_based": 0.2737
+          },
+          "details": {
+            "static_weights": true,
+            "cnn_contribution": 0.181575,
+            "rule_contribution": 0.232645
+          },
+          "binary_prediction": 0,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "confidence_weighted": {
+          "prediction": 0.4565433854907539,
+          "confidence": 0.7337695590327169,
+          "method": "confidence_weighted",
+          "weights_used": {
+            "cnn": 0.6557610241820768,
+            "rule_based": 0.3442389758179232
+          },
+          "details": {
+            "base_weights": {
+              "cnn": 0.65,
+              "rule_based": 0.35
+            },
+            "confidence_adjustment": {
+              "cnn_boost": 0.7297297297297297,
+              "rule_boost": 0.7702702702702702
+            }
+          },
+          "binary_prediction": 0,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "exponential_confidence": {
+          "prediction": 0.5281021897810219,
+          "confidence": 0.7385401459854014,
+          "method": "exponential_confidence",
+          "weights_used": {
+            "cnn": 0.5364963503649635,
+            "rule_based": 0.4635036496350365
+          },
+          "details": {
+            "exponential_confidences": {
+              "cnn": 0.5184,
+              "rule_based": 0.5776
+            },
+            "exponent_used": 2.0
+          },
+          "binary_prediction": 1,
+          "correct": false,
+          "accuracy": 0.0
+        },
+        "adaptive_threshold": {
+          "prediction": 1,
+          "confidence": 0.703,
+          "method": "adaptive_threshold",
+          "weights_used": {
+            "cnn": 0.5,
+            "rule_based": 0.5
+          },
+          "details": {
+            "base_threshold": 0.5,
+            "adapted_threshold": 0.5,
+            "average_prediction": 0.55,
+            "threshold_adjustment": 0.0
+          },
+          "binary_prediction": 1,
+          "correct": false,
+          "accuracy": 0.0
+        },
+        "ensemble_confidence": {
+          "prediction": 0.5704273938179439,
+          "confidence": 0.7279618262545295,
+          "method": "ensemble_confidence",
+          "weights_used": {
+            "meta_weights": [
+              0.3,
+              0.25,
+              0.25,
+              0.2
+            ]
+          },
+          "details": {
+            "individual_predictions": [
+              0.41422,
+              0.4565433854907539,
+              0.5281021897810219,
+              1
+            ],
+            "individual_confidences": [
+              0.7309479999999999,
+              0.7337695590327169,
+              0.7385401459854014,
+              0.703
+            ],
+            "prediction_variance": 0.05506574550771816,
+            "confidence_variance": 0.00019245742622771102,
+            "ensemble_agreement": 0.9449342544922819
+          },
+          "binary_prediction": 1,
+          "correct": false,
+          "accuracy": 0.0
+        }
+      }
+    },
+    {
+      "scenario": {
+        "name": "Low Confidence - Uncertain Case",
+        "cnn_pred": 0.52,
+        "cnn_conf": 0.48,
+        "rule_pred": 0.49,
+        "rule_conf": 0.43,
+        "ground_truth": 0,
+        "scenario_type": "low_confidence"
+      },
+      "method_results": {
+        "performance_based": {
+          "prediction": 0.511789,
+          "confidence": 0.4663149999999999,
+          "method": "performance_based",
+          "weights_used": {
+            "cnn": 0.7263,
+            "rule_based": 0.2737
+          },
+          "details": {
+            "static_weights": true,
+            "cnn_contribution": 0.377676,
+            "rule_contribution": 0.134113
+          },
+          "binary_prediction": 1,
+          "correct": false,
+          "accuracy": 0.0
+        },
+        "confidence_weighted": {
+          "prediction": 0.509866975130133,
+          "confidence": 0.4631116252168883,
+          "method": "confidence_weighted",
+          "weights_used": {
+            "cnn": 0.6622325043377675,
+            "rule_based": 0.33776749566223246
+          },
+          "details": {
+            "base_weights": {
+              "cnn": 0.65,
+              "rule_based": 0.35
+            },
+            "confidence_adjustment": {
+              "cnn_boost": 0.7912087912087913,
+              "rule_boost": 0.7087912087912088
+            }
+          },
+          "binary_prediction": 1,
+          "correct": false,
+          "accuracy": 0.0
+        },
+        "exponential_confidence": {
+          "prediction": 0.5073216951601253,
+          "confidence": 0.458869491933542,
+          "method": "exponential_confidence",
+          "weights_used": {
+            "cnn": 0.5773898386708404,
+            "rule_based": 0.4226101613291597
+          },
+          "details": {
+            "exponential_confidences": {
+              "cnn": 0.2304,
+              "rule_based": 0.18489999999999998
+            },
+            "exponent_used": 2.0
+          },
+          "binary_prediction": 1,
+          "correct": false,
+          "accuracy": 0.0
+        },
+        "adaptive_threshold": {
+          "prediction": 1,
+          "confidence": 0.45272499999999993,
+          "method": "adaptive_threshold",
+          "weights_used": {
+            "cnn": 0.5,
+            "rule_based": 0.5
+          },
+          "details": {
+            "base_threshold": 0.5,
+            "adapted_threshold": 0.5,
+            "average_prediction": 0.505,
+            "threshold_adjustment": 0.0
+          },
+          "binary_prediction": 1,
+          "correct": false,
+          "accuracy": 0.0
+        },
+        "ensemble_confidence": {
+          "prediction": 0.6078338675725645,
+          "confidence": 0.4609347792876075,
+          "method": "ensemble_confidence",
+          "weights_used": {
+            "meta_weights": [
+              0.3,
+              0.25,
+              0.25,
+              0.2
+            ]
+          },
+          "details": {
+            "individual_predictions": [
+              0.511789,
+              0.509866975130133,
+              0.5073216951601253,
+              1
+            ],
+            "individual_confidences": [
+              0.4663149999999999,
+              0.4631116252168883,
+              0.458869491933542,
+              0.45272499999999993
+            ],
+            "prediction_variance": 0.04508390025570229,
+            "confidence_variance": 2.587610997999406e-05,
+            "ensemble_agreement": 0.9549160997442977
+          },
+          "binary_prediction": 1,
+          "correct": false,
+          "accuracy": 0.0
+        }
+      }
+    },
+    {
+      "scenario": {
+        "name": "Edge Case - Boundary Decision",
+        "cnn_pred": 0.501,
+        "cnn_conf": 0.55,
+        "rule_pred": 0.499,
+        "rule_conf": 0.53,
+        "ground_truth": 1,
+        "scenario_type": "edge_case"
+      },
+      "method_results": {
+        "performance_based": {
+          "prediction": 0.5004526,
+          "confidence": 0.5445260000000001,
+          "method": "performance_based",
+          "weights_used": {
+            "cnn": 0.7263,
+            "rule_based": 0.2737
+          },
+          "details": {
+            "static_weights": true,
+            "cnn_contribution": 0.3638763,
+            "rule_contribution": 0.1365763
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "confidence_weighted": {
+          "prediction": 0.5003187134502924,
+          "confidence": 0.543187134502924,
+          "method": "confidence_weighted",
+          "weights_used": {
+            "cnn": 0.6593567251461988,
+            "rule_based": 0.34064327485380114
+          },
+          "details": {
+            "base_weights": {
+              "cnn": 0.65,
+              "rule_based": 0.35
+            },
+            "confidence_adjustment": {
+              "cnn_boost": 0.763888888888889,
+              "rule_boost": 0.7361111111111112
+            }
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "exponential_confidence": {
+          "prediction": 0.5001185121700378,
+          "confidence": 0.5411851217003771,
+          "method": "exponential_confidence",
+          "weights_used": {
+            "cnn": 0.559256085018855,
+            "rule_based": 0.440743914981145
+          },
+          "details": {
+            "exponential_confidences": {
+              "cnn": 0.30250000000000005,
+              "rule_based": 0.28090000000000004
+            },
+            "exponent_used": 2.0
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "adaptive_threshold": {
+          "prediction": 0,
+          "confidence": 0.54,
+          "method": "adaptive_threshold",
+          "weights_used": {
+            "cnn": 0.5,
+            "rule_based": 0.5
+          },
+          "details": {
+            "base_threshold": 0.5,
+            "adapted_threshold": 0.5,
+            "average_prediction": 0.5,
+            "threshold_adjustment": 0.0
+          },
+          "binary_prediction": 0,
+          "correct": false,
+          "accuracy": 0.0
+        },
+        "ensemble_confidence": {
+          "prediction": 0.40024508640508255,
+          "confidence": 0.5424508640508253,
+          "method": "ensemble_confidence",
+          "weights_used": {
+            "meta_weights": [
+              0.3,
+              0.25,
+              0.25,
+              0.2
+            ]
+          },
+          "details": {
+            "individual_predictions": [
+              0.5004526,
+              0.5003187134502924,
+              0.5001185121700378,
+              0
+            ],
+            "individual_confidences": [
+              0.5445260000000001,
+              0.543187134502924,
+              0.5411851217003771,
+              0.54
+            ],
+            "prediction_variance": 0.04693064473195794,
+            "confidence_variance": 3.063068729884189e-06,
+            "ensemble_agreement": 0.953069355268042
+          },
+          "binary_prediction": 0,
+          "correct": false,
+          "accuracy": 0.0
+        }
+      }
+    },
+    {
+      "scenario": {
+        "name": "High CNN, Low Rule - Complementary",
+        "cnn_pred": 0.89,
+        "cnn_conf": 0.87,
+        "rule_pred": 0.34,
+        "rule_conf": 0.41,
+        "ground_truth": 1,
+        "scenario_type": "complementary"
+      },
+      "method_results": {
+        "performance_based": {
+          "prediction": 0.7394649999999999,
+          "confidence": 0.7440979999999999,
+          "method": "performance_based",
+          "weights_used": {
+            "cnn": 0.7263,
+            "rule_based": 0.2737
+          },
+          "details": {
+            "static_weights": true,
+            "cnn_contribution": 0.646407,
+            "rule_contribution": 0.093058
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "confidence_weighted": {
+          "prediction": 0.7174465460526317,
+          "confidence": 0.7256825657894737,
+          "method": "confidence_weighted",
+          "weights_used": {
+            "cnn": 0.6862664473684211,
+            "rule_based": 0.3137335526315789
+          },
+          "details": {
+            "base_weights": {
+              "cnn": 0.65,
+              "rule_based": 0.35
+            },
+            "confidence_adjustment": {
+              "cnn_boost": 1.01953125,
+              "rule_boost": 0.48046875
+            }
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "exponential_confidence": {
+          "prediction": 0.7300243243243243,
+          "confidence": 0.7362021621621622,
+          "method": "exponential_confidence",
+          "weights_used": {
+            "cnn": 0.7091351351351352,
+            "rule_based": 0.29086486486486485
+          },
+          "details": {
+            "exponential_confidences": {
+              "cnn": 0.7569,
+              "rule_based": 0.16809999999999997
+            },
+            "exponent_used": 2.0
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "adaptive_threshold": {
+          "prediction": 1,
+          "confidence": 0.5664,
+          "method": "adaptive_threshold",
+          "weights_used": {
+            "cnn": 0.5,
+            "rule_based": 0.5
+          },
+          "details": {
+            "base_threshold": 0.5,
+            "adapted_threshold": 0.5,
+            "average_prediction": 0.615,
+            "threshold_adjustment": 0.0
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "ensemble_confidence": {
+          "prediction": 0.783707217594239,
+          "confidence": 0.701980581987909,
+          "method": "ensemble_confidence",
+          "weights_used": {
+            "meta_weights": [
+              0.3,
+              0.25,
+              0.25,
+              0.2
+            ]
+          },
+          "details": {
+            "individual_predictions": [
+              0.7394649999999999,
+              0.7174465460526317,
+              0.7300243243243243,
+              1
+            ],
+            "individual_confidences": [
+              0.7440979999999999,
+              0.7256825657894737,
+              0.7362021621621622,
+              0.5664
+            ],
+            "prediction_variance": 0.013833371574801426,
+            "confidence_variance": 0.005393276476474444,
+            "ensemble_agreement": 0.9861666284251985
+          },
+          "binary_prediction": 1,
+          "correct": true,
+          "accuracy": 1.0
+        }
+      }
+    },
+    {
+      "scenario": {
+        "name": "Clean Benign - Both Agree",
+        "cnn_pred": 0.15,
+        "cnn_conf": 0.83,
+        "rule_pred": 0.22,
+        "rule_conf": 0.79,
+        "ground_truth": 0,
+        "scenario_type": "clean_benign"
+      },
+      "method_results": {
+        "performance_based": {
+          "prediction": 0.16915899999999998,
+          "confidence": 0.8190519999999999,
+          "method": "performance_based",
+          "weights_used": {
+            "cnn": 0.7263,
+            "rule_based": 0.2737
+          },
+          "details": {
+            "static_weights": true,
+            "cnn_contribution": 0.10894499999999999,
+            "rule_contribution": 0.060214
+          },
+          "binary_prediction": 0,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "confidence_weighted": {
+          "prediction": 0.17381091617933725,
+          "confidence": 0.816393762183236,
+          "method": "confidence_weighted",
+          "weights_used": {
+            "cnn": 0.6598440545808968,
+            "rule_based": 0.3401559454191033
+          },
+          "details": {
+            "base_weights": {
+              "cnn": 0.65,
+              "rule_based": 0.35
+            },
+            "confidence_adjustment": {
+              "cnn_boost": 0.7685185185185184,
+              "rule_boost": 0.7314814814814815
+            }
+          },
+          "binary_prediction": 0,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "exponential_confidence": {
+          "prediction": 0.18063632901751714,
+          "confidence": 0.8124935262757045,
+          "method": "exponential_confidence",
+          "weights_used": {
+            "cnn": 0.5623381568926124,
+            "rule_based": 0.4376618431073877
+          },
+          "details": {
+            "exponential_confidences": {
+              "cnn": 0.6889,
+              "rule_based": 0.6241000000000001
+            },
+            "exponent_used": 2.0
+          },
+          "binary_prediction": 0,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "adaptive_threshold": {
+          "prediction": 0,
+          "confidence": 0.63585,
+          "method": "adaptive_threshold",
+          "weights_used": {
+            "cnn": 0.5,
+            "rule_based": 0.5
+          },
+          "details": {
+            "base_threshold": 0.5,
+            "adapted_threshold": 0.4,
+            "average_prediction": 0.185,
+            "threshold_adjustment": -0.09999999999999998
+          },
+          "binary_prediction": 0,
+          "correct": true,
+          "accuracy": 1.0
+        },
+        "ensemble_confidence": {
+          "prediction": 0.1393595112992136,
+          "confidence": 0.780107422114735,
+          "method": "ensemble_confidence",
+          "weights_used": {
+            "meta_weights": [
+              0.3,
+              0.25,
+              0.25,
+              0.2
+            ]
+          },
+          "details": {
+            "individual_predictions": [
+              0.16915899999999998,
+              0.17381091617933725,
+              0.18063632901751714,
+              0
+            ],
+            "individual_confidences": [
+              0.8190519999999999,
+              0.816393762183236,
+              0.8124935262757045,
+              0.63585
+            ],
+            "prediction_variance": 0.005728402555684551,
+            "confidence_variance": 0.006089203118025591,
+            "ensemble_agreement": 0.9942715974443155
+          },
+          "binary_prediction": 0,
+          "correct": true,
+          "accuracy": 1.0
+        }
+      }
+    }
+  ],
+  "method_performance": {
+    "performance_based": {
+      "accuracy": 0.875,
+      "total_tests": 8,
+      "correct_predictions": 7,
+      "avg_confidence": 0.70926225,
+      "confidence_std": 0.13366184018424068
+    },
+    "confidence_weighted": {
+      "accuracy": 0.875,
+      "total_tests": 8,
+      "correct_predictions": 7,
+      "avg_confidence": 0.7079289520893997,
+      "confidence_std": 0.1312224388531492
+    },
+    "exponential_confidence": {
+      "accuracy": 0.75,
+      "total_tests": 8,
+      "correct_predictions": 6,
+      "avg_confidence": 0.7142077329938985,
+      "confidence_std": 0.13122274863366093
+    },
+    "adaptive_threshold": {
+      "accuracy": 0.625,
+      "total_tests": 8,
+      "correct_predictions": 5,
+      "avg_confidence": 0.5383437499999999,
+      "confidence_std": 0.08883073506499595
+    },
+    "ensemble_confidence": {
+      "accuracy": 0.625,
+      "total_tests": 8,
+      "correct_predictions": 5,
+      "avg_confidence": 0.6759815962708245,
+      "confidence_std": 0.10857982773693087
+    }
+  },
+  "timestamp": "2025-09-23T23:43:55.978360"
+}

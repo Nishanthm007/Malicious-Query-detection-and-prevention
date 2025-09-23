@@ -1,0 +1,518 @@
+{
+  "fusion_strategies": {
+    "weighted_average": {
+      "name": "Weighted Average Fusion",
+      "description": "Combines predictions using learned weights",
+      "weights": {
+        "cnn": 0.7,
+        "rule_based": 0.3
+      },
+      "active": true
+    },
+    "confidence_dynamic": {
+      "name": "Confidence-Based Dynamic Fusion",
+      "description": "Adjusts weights based on prediction confidence",
+      "base_weights": {
+        "cnn": 0.65,
+        "rule_based": 0.35
+      },
+      "confidence_boost": 0.2,
+      "active": true
+    },
+    "majority_voting": {
+      "name": "Majority Voting",
+      "description": "Binary decision based on majority vote",
+      "threshold": 0.5,
+      "active": true
+    },
+    "hierarchical": {
+      "name": "Hierarchical Decision Fusion",
+      "description": "CNN first, rule-based for edge cases",
+      "cnn_confidence_threshold": 0.7,
+      "active": true
+    },
+    "ensemble": {
+      "name": "Advanced Ensemble Fusion",
+      "description": "Multiple fusion methods with meta-learning",
+      "meta_weights": [
+        0.4,
+        0.3,
+        0.2,
+        0.1
+      ],
+      "active": true
+    }
+  },
+  "confidence_thresholds": {
+    "high_confidence": 0.8,
+    "medium_confidence": 0.6,
+    "low_confidence": 0.4
+  },
+  "test_results": [
+    {
+      "test_case": "High CNN Confidence Case",
+      "input": {
+        "name": "High CNN Confidence Case",
+        "cnn_pred": 0.95,
+        "cnn_conf": 0.92,
+        "rule_pred": 0.75,
+        "rule_conf": 0.68,
+        "expected": "CNN should dominate"
+      },
+      "results": {
+        "weighted_average": {
+          "prediction": 0.8899999999999999,
+          "confidence": 0.8480000000000001,
+          "strategy": "weighted_average",
+          "details": {
+            "cnn_weight": 0.7,
+            "rule_weight": 0.3,
+            "raw_cnn": 0.95,
+            "raw_rule": 0.75
+          }
+        },
+        "confidence_dynamic": {
+          "prediction": 0.8896,
+          "confidence": 0.84752,
+          "strategy": "confidence_dynamic",
+          "details": {
+            "dynamic_cnn_weight": 0.6980000000000001,
+            "dynamic_rule_weight": 0.30199999999999994,
+            "confidence_diff": 0.24,
+            "raw_cnn": 0.95,
+            "raw_rule": 0.75
+          }
+        },
+        "majority_voting": {
+          "prediction": 1,
+          "confidence": 0.8,
+          "strategy": "majority_voting",
+          "details": {
+            "cnn_decision": 1,
+            "rule_decision": 1,
+            "agreement": true,
+            "tie_breaker_used": false
+          }
+        },
+        "hierarchical": {
+          "prediction": 0.95,
+          "confidence": 0.92,
+          "strategy": "hierarchical",
+          "details": {
+            "decision_maker": "cnn_primary",
+            "cnn_confidence_sufficient": true,
+            "rule_based_consulted": false
+          }
+        },
+        "ensemble": {
+          "prediction": 0.9178799999999998,
+          "confidence": 0.845456,
+          "strategy": "ensemble",
+          "details": {
+            "strategy_predictions": [
+              0.8899999999999999,
+              0.8896,
+              1,
+              0.95
+            ],
+            "strategy_confidences": [
+              0.8480000000000001,
+              0.84752,
+              0.8,
+              0.92
+            ],
+            "meta_weights": [
+              0.4,
+              0.3,
+              0.2,
+              0.1
+            ],
+            "strategy_agreement": 0.04612244572873389
+          }
+        }
+      }
+    },
+    {
+      "test_case": "High Rule Confidence Case",
+      "input": {
+        "name": "High Rule Confidence Case",
+        "cnn_pred": 0.55,
+        "cnn_conf": 0.58,
+        "rule_pred": 0.88,
+        "rule_conf": 0.91,
+        "expected": "Rule-based should influence more"
+      },
+      "results": {
+        "weighted_average": {
+          "prediction": 0.649,
+          "confidence": 0.679,
+          "strategy": "weighted_average",
+          "details": {
+            "cnn_weight": 0.7,
+            "rule_weight": 0.3,
+            "raw_cnn": 0.55,
+            "raw_rule": 0.88
+          }
+        },
+        "confidence_dynamic": {
+          "prediction": 0.68728,
+          "confidence": 0.71728,
+          "strategy": "confidence_dynamic",
+          "details": {
+            "dynamic_cnn_weight": 0.5840000000000001,
+            "dynamic_rule_weight": 0.416,
+            "confidence_diff": 0.33000000000000007,
+            "raw_cnn": 0.55,
+            "raw_rule": 0.88
+          }
+        },
+        "majority_voting": {
+          "prediction": 1,
+          "confidence": 0.745,
+          "strategy": "majority_voting",
+          "details": {
+            "cnn_decision": 1,
+            "rule_decision": 1,
+            "agreement": true,
+            "tie_breaker_used": false
+          }
+        },
+        "hierarchical": {
+          "prediction": 0.682,
+          "confidence": 0.712,
+          "strategy": "hierarchical",
+          "details": {
+            "decision_maker": "hybrid_uncertain",
+            "cnn_confidence_sufficient": false,
+            "rule_based_consulted": true,
+            "uncertainty_weights": {
+              "cnn": 0.6,
+              "rule": 0.4
+            }
+          }
+        },
+        "ensemble": {
+          "prediction": 0.733984,
+          "confidence": 0.7069840000000001,
+          "strategy": "ensemble",
+          "details": {
+            "strategy_predictions": [
+              0.649,
+              0.68728,
+              1,
+              0.682
+            ],
+            "strategy_confidences": [
+              0.679,
+              0.71728,
+              0.745,
+              0.712
+            ],
+            "meta_weights": [
+              0.4,
+              0.3,
+              0.2,
+              0.1
+            ],
+            "strategy_agreement": 0.14245636068635192
+          }
+        }
+      }
+    },
+    {
+      "test_case": "Agreement Case",
+      "input": {
+        "name": "Agreement Case",
+        "cnn_pred": 0.85,
+        "cnn_conf": 0.8,
+        "rule_pred": 0.82,
+        "rule_conf": 0.78,
+        "expected": "Both systems agree - high confidence"
+      },
+      "results": {
+        "weighted_average": {
+          "prediction": 0.841,
+          "confidence": 0.7939999999999999,
+          "strategy": "weighted_average",
+          "details": {
+            "cnn_weight": 0.7,
+            "rule_weight": 0.3,
+            "raw_cnn": 0.85,
+            "raw_rule": 0.82
+          }
+        },
+        "confidence_dynamic": {
+          "prediction": 0.83962,
+          "confidence": 0.79308,
+          "strategy": "confidence_dynamic",
+          "details": {
+            "dynamic_cnn_weight": 0.654,
+            "dynamic_rule_weight": 0.346,
+            "confidence_diff": 0.020000000000000018,
+            "raw_cnn": 0.85,
+            "raw_rule": 0.82
+          }
+        },
+        "majority_voting": {
+          "prediction": 1,
+          "confidence": 0.79,
+          "strategy": "majority_voting",
+          "details": {
+            "cnn_decision": 1,
+            "rule_decision": 1,
+            "agreement": true,
+            "tie_breaker_used": false
+          }
+        },
+        "hierarchical": {
+          "prediction": 0.85,
+          "confidence": 0.8,
+          "strategy": "hierarchical",
+          "details": {
+            "decision_maker": "cnn_primary",
+            "cnn_confidence_sufficient": true,
+            "rule_based_consulted": false
+          }
+        },
+        "ensemble": {
+          "prediction": 0.873286,
+          "confidence": 0.7935240000000001,
+          "strategy": "ensemble",
+          "details": {
+            "strategy_predictions": [
+              0.841,
+              0.83962,
+              1,
+              0.85
+            ],
+            "strategy_confidences": [
+              0.7939999999999999,
+              0.79308,
+              0.79,
+              0.8
+            ],
+            "meta_weights": [
+              0.4,
+              0.3,
+              0.2,
+              0.1
+            ],
+            "strategy_agreement": 0.06786631767673858
+          }
+        }
+      }
+    },
+    {
+      "test_case": "Disagreement Case",
+      "input": {
+        "name": "Disagreement Case",
+        "cnn_pred": 0.25,
+        "cnn_conf": 0.65,
+        "rule_pred": 0.85,
+        "rule_conf": 0.7,
+        "expected": "Systems disagree - complex fusion needed"
+      },
+      "results": {
+        "weighted_average": {
+          "prediction": 0.43,
+          "confidence": 0.6649999999999999,
+          "strategy": "weighted_average",
+          "details": {
+            "cnn_weight": 0.7,
+            "rule_weight": 0.3,
+            "raw_cnn": 0.25,
+            "raw_rule": 0.85
+          }
+        },
+        "confidence_dynamic": {
+          "prediction": 0.46599999999999997,
+          "confidence": 0.668,
+          "strategy": "confidence_dynamic",
+          "details": {
+            "dynamic_cnn_weight": 0.64,
+            "dynamic_rule_weight": 0.36,
+            "confidence_diff": 0.04999999999999993,
+            "raw_cnn": 0.25,
+            "raw_rule": 0.85
+          }
+        },
+        "majority_voting": {
+          "prediction": 1,
+          "confidence": 0.7,
+          "strategy": "majority_voting",
+          "details": {
+            "cnn_decision": 0,
+            "rule_decision": 1,
+            "agreement": false,
+            "tie_breaker_used": true
+          }
+        },
+        "hierarchical": {
+          "prediction": 0.49,
+          "confidence": 0.6699999999999999,
+          "strategy": "hierarchical",
+          "details": {
+            "decision_maker": "hybrid_uncertain",
+            "cnn_confidence_sufficient": false,
+            "rule_based_consulted": true,
+            "uncertainty_weights": {
+              "cnn": 0.6,
+              "rule": 0.4
+            }
+          }
+        },
+        "ensemble": {
+          "prediction": 0.5608000000000001,
+          "confidence": 0.6733999999999999,
+          "strategy": "ensemble",
+          "details": {
+            "strategy_predictions": [
+              0.43,
+              0.46599999999999997,
+              1,
+              0.49
+            ],
+            "strategy_confidences": [
+              0.6649999999999999,
+              0.668,
+              0.7,
+              0.6699999999999999
+            ],
+            "meta_weights": [
+              0.4,
+              0.3,
+              0.2,
+              0.1
+            ],
+            "strategy_agreement": 0.23393749165108185
+          }
+        }
+      }
+    },
+    {
+      "test_case": "Low Confidence Case",
+      "input": {
+        "name": "Low Confidence Case",
+        "cnn_pred": 0.52,
+        "cnn_conf": 0.45,
+        "rule_pred": 0.48,
+        "rule_conf": 0.42,
+        "expected": "Both uncertain - conservative approach"
+      },
+      "results": {
+        "weighted_average": {
+          "prediction": 0.508,
+          "confidence": 0.441,
+          "strategy": "weighted_average",
+          "details": {
+            "cnn_weight": 0.7,
+            "rule_weight": 0.3,
+            "raw_cnn": 0.52,
+            "raw_rule": 0.48
+          }
+        },
+        "confidence_dynamic": {
+          "prediction": 0.50624,
+          "confidence": 0.43967999999999996,
+          "strategy": "confidence_dynamic",
+          "details": {
+            "dynamic_cnn_weight": 0.656,
+            "dynamic_rule_weight": 0.344,
+            "confidence_diff": 0.030000000000000027,
+            "raw_cnn": 0.52,
+            "raw_rule": 0.48
+          }
+        },
+        "majority_voting": {
+          "prediction": 1,
+          "confidence": 0.45,
+          "strategy": "majority_voting",
+          "details": {
+            "cnn_decision": 1,
+            "rule_decision": 0,
+            "agreement": false,
+            "tie_breaker_used": true
+          }
+        },
+        "hierarchical": {
+          "prediction": 0.504,
+          "confidence": 0.43800000000000006,
+          "strategy": "hierarchical",
+          "details": {
+            "decision_maker": "hybrid_uncertain",
+            "cnn_confidence_sufficient": false,
+            "rule_based_consulted": true,
+            "uncertainty_weights": {
+              "cnn": 0.6,
+              "rule": 0.4
+            }
+          }
+        },
+        "ensemble": {
+          "prediction": 0.605472,
+          "confidence": 0.44210400000000005,
+          "strategy": "ensemble",
+          "details": {
+            "strategy_predictions": [
+              0.508,
+              0.50624,
+              1,
+              0.504
+            ],
+            "strategy_confidences": [
+              0.441,
+              0.43967999999999996,
+              0.45,
+              0.43800000000000006
+            ],
+            "meta_weights": [
+              0.4,
+              0.3,
+              0.2,
+              0.1
+            ],
+            "strategy_agreement": 0.21387833176832102
+          }
+        }
+      }
+    }
+  ],
+  "strategy_statistics": {
+    "weighted_average": {
+      "avg_prediction": 0.6636,
+      "std_prediction": 0.1798450444132392,
+      "avg_confidence": 0.6854,
+      "std_confidence": 0.14030053456776279,
+      "prediction_range": 0.4599999999999999
+    },
+    "confidence_dynamic": {
+      "avg_prediction": 0.677748,
+      "std_prediction": 0.17054435369134915,
+      "avg_confidence": 0.693112,
+      "std_confidence": 0.1409098398835227,
+      "prediction_range": 0.4236
+    },
+    "majority_voting": {
+      "avg_prediction": 1.0,
+      "std_prediction": 0.0,
+      "avg_confidence": 0.6970000000000001,
+      "std_confidence": 0.12851459061133877,
+      "prediction_range": 0
+    },
+    "hierarchical": {
+      "avg_prediction": 0.6952,
+      "std_prediction": 0.18315283235593163,
+      "avg_confidence": 0.7080000000000001,
+      "std_confidence": 0.159854934237264,
+      "prediction_range": 0.45999999999999996
+    },
+    "ensemble": {
+      "avg_prediction": 0.7382844000000001,
+      "std_prediction": 0.1411654000236601,
+      "avg_confidence": 0.6922936000000001,
+      "std_confidence": 0.13919333790034635,
+      "prediction_range": 0.35707999999999973
+    }
+  },
+  "timestamp": "2025-09-23T23:21:31.659415"
+}
